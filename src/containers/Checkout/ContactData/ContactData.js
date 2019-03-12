@@ -122,13 +122,7 @@ class ContactData extends Component {
 
 	checkValidity(value, rules) {
 		let isValid = true;
-		
-		// alternative option for validation select...
-		// not needed!
-		// if(!rules) {
-		// 	return true;
-		// }
-
+	
 		if (rules.required) {
 			isValid = value.trim() !== '' && isValid;
 		}
