@@ -88,22 +88,23 @@ class BurgerBuilder extends Component {
     // alert("You continue!");
     
     
-    const queryParams = []
-    // get the ingredients and store them in an array
-    for (const i in this.state.ingredients) {
-      if (this.state.ingredients.hasOwnProperty(i)) {
-        queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
-      }
-    }
-    // We need the price for the Checkout. So we push it here:
-    queryParams.push('price=' + this.state.totalPrice)
-    // save the ingredients as a string and pass assing it to the search query
-    const queryString = queryParams.join('&')
-    this.props.history.push({
-      pathname: '/checkout',
-      search: '?' + queryString 
-    })
-    console.log('BuirgerBuilder in purchase...' + this.props);
+    // const queryParams = []
+    // // get the ingredients and store them in an array
+    // for (const i in this.state.ingredients) {
+    //   if (this.state.ingredients.hasOwnProperty(i)) {
+    //     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+    //   }
+    // }
+    // // We need the price for the Checkout. So we push it here:
+    // queryParams.push('price=' + this.state.totalPrice)
+    // // save the ingredients as a string and pass assing it to the search query
+    // const queryString = queryParams.join('&')
+    // this.props.history.push({
+    //   pathname: '/checkout',
+    //   search: '?' + queryString 
+    // })
+    // console.log('BuirgerBuilder in purchase...' + this.props);
+    this.props.history.push('/checkout')
   };
 
   render() {
