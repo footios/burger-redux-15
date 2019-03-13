@@ -19,13 +19,26 @@ class BurgerBuilder extends Component {
     error: false
   };
 
+  // updatePurchaseState(ingredients) {
+  //   const sum = Object.keys(ingredients)
+  //     .map(ing => ingredients[ing])
+  //     .reduce((acc, elem) => {
+  //       return acc + elem;
+  //     }, 0);
+  //   return sum > 0;
+  // }
+
+  // this was inspired from the code in ContactData.js
   updatePurchaseState(ingredients) {
-    const sum = Object.keys(ingredients)
-      .map(ing => ingredients[ing])
-      .reduce((acc, elem) => {
-        return acc + elem;
-      }, 0);
-    return sum > 0;
+    const ings = Object.keys(ingredients)
+    const amount = true;
+      for (let ing of ings) {
+        if(ingredients[ing] > 0 && amount){
+          return true
+        } else {
+          return false
+        }
+      }
   }
 
   purchaseHandler = () => {
@@ -65,7 +78,7 @@ class BurgerBuilder extends Component {
             ingredientRemoved={this.props.onRemoveIngredient}
             disabled={disabledInfo}
             price={this.props.price}
-            //purchasable={this.updatePurchaseState(this.props.ings)}
+            purchasable={this.updatePurchaseState(this.props.ings)}
             ordered={this.purchaseHandler}
           />
         </Eject>
