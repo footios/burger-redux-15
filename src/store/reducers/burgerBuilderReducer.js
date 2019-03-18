@@ -1,13 +1,10 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-	ingredients: {
-		salad: 0,
-		bacon: 0,
-		cheese: 0,
-		meat: 0
-	},
-	totalPrice: 4
+	ingredients: null,
+	totalPrice: 4,
+	error: false,
+	loading: false
 };
 
 const INGREDIENT_PRICES = {
@@ -37,6 +34,36 @@ const reducer = (state = initialState, action) => {
                 },
                 totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
 			};
+		case actionTypes.INIT_BURGER:
+			return {
+					...state,
+					ingredients: action.ingredients,
+					error: false,
+					loading: false
+			}
+		case actionTypes.START_BURGER:
+			return {
+					...state,
+					ingredients: {
+						salad: action.ingredients.salad,
+						bacon: action.ingredients.bacon,
+						cheese: action.ingredients.cheese,
+						meat: action.ingredients.meat
+					},
+					error: false,
+					loading: false
+			}
+		case actionTypes.BURGER_FAILED:
+			return {
+					...state,
+					error: true,
+					loading: false
+			}
+		case actionTypes.LOADING:
+			return {
+					...state,
+					loading: true
+			}
 		default:
 			return state;
 	}
