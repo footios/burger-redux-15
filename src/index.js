@@ -8,14 +8,17 @@ import thunk from 'redux-thunk'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {burgerBuilderReducer} from './store/reducers/burgerBuilderReducer';
-import {orderReducer} from './store/reducers/orderReducer'
+import { burgerBuilderReducer } from './store/reducers/burgerBuilderReducer';
+import { orderReducer } from './store/reducers/orderReducer'
+import { fetchOrdersReducer } from './store/reducers/fetchOrdersReducer'
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
 	burgerBuilder: burgerBuilderReducer,
-	order: orderReducer
+	order: orderReducer,
+	fetchOrders: fetchOrdersReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));

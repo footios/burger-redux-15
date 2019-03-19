@@ -1,34 +1,17 @@
 import React, { Component } from 'react';
 
 import Order from '../../components/Order/Order';
+import Spinner from '../../components/UI/Spinner/Spinner'
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-//import Order from '../../components/Order/Order';
+
+import { connect } from 'react-redux'
+import * as actions from '../../store/actions'
 
 class Orders extends Component {
-	state = {
-		orders: [],
-		loading: true
-	};
 
 	componentDidMount() {
-		// From orders we fetch an object.
-		axios
-			.get('/orders.json')
-			.then((res) => {
-				console.log('Orders: ', res.data); // Why is 'data' what we get back from Firebase?
-				//convert the object into an array:
-				const fetchedOrders = [];
-				for (const key in res.data) {
-					if (res.data.hasOwnProperty(key)) {
-						fetchedOrders.push({ ...res.data[key], id: key });
-					}
-				}
-				this.setState({ loading: false, orders: fetchedOrders });
-			})
-			.catch((err) => {
-				this.setState({ loading: false });
-			});
+		this.props.onGetOrders()
 	}
 
 	render() {
@@ -37,7 +20,7 @@ class Orders extends Component {
 		// of course should be fetched from the backend.
 		return (
 			<div>
-				{this.state.orders.map((orders) => (
+				{this.props.orders.map((orders) => (
 					// Do this: price={+order.price} so the toFixed(2) will work in Order.js
 					<Order key={orders.id} ingredients={orders.ingredients} price={orders.price} />
 				))}
@@ -46,4 +29,16 @@ class Orders extends Component {
 	}
 }
 
-export default withErrorHandler(Orders, axios);
+const mapStateToProps = state => {
+	return {
+		orders: state.fetchOrders.orders
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onGetOrders: () => dispatch(actions.getOrders())
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios));
