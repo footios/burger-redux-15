@@ -33,3 +33,20 @@ export const getOrders = () => {
 			.catch((err) => dispatch(fetchOrdersFail(err)));
     }
 }
+
+export const deleteOrder = (id) => {
+	return {
+		type: actionTypes.DELETE_ORDER,
+		orderId: id, 
+	}
+}
+
+// export const deleterOrderOnServer = (orderData) => {
+// 	return dispatch => {
+//         dispatch(deleteOrder())
+//         axios
+// 			.post('/orders.json', orderData)
+// 			.then((response) => dispatch(purchaseBurgerSuccess(response.data, orderData)))
+// 			.then((error) => dispatch(purchaseBurgerFail(error)));
+//     }
+// }
