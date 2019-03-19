@@ -37,3 +37,10 @@ export const purchaseInit = () => {
         type: actionTypes.PURCHASE_INIT
     }
 }
+
+export const deleteOrder = (id) => {
+	return {
+		type: actionTypes.DELETE_ORDER,
+		orderId: id, 
+	}
+}

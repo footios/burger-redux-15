@@ -15,13 +15,10 @@ class Orders extends Component {
 	}
 
 	render() {
-		// I obviously want to output multiple orders,
-		// actually as many orders as needed and the orders I need to output
-		// of course should be fetched from the backend.
-
 		const orders = this.props.orders.map((orders) => (
 					// Do this: price={+order.price} so the toFixed(2) will work in Order.js
-					<Order key={orders.id} ingredients={orders.ingredients} price={orders.price} />
+					<Order key={orders.id} ingredients={orders.ingredients} price={orders.price} 
+					deleteOrder={() => this.props.onDeleteOrder(orders.id)}/>
 				))
 		return (
 			<div>
@@ -40,7 +37,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onGetOrders: () => dispatch(actions.getOrders())
+		onGetOrders: () => dispatch(actions.getOrders()),
+		onDeleteOrder: (id) => dispatch(actions.deleteOrder(id))
 	}
 }
 
