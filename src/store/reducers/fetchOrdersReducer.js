@@ -1,5 +1,4 @@
 import * as actionTypes from '../actions/actionTypes';
-import axios from '../../axios-orders';
 
 const initialState = {
 	orders: [],
@@ -20,14 +19,14 @@ export const fetchOrdersReducer = (state = initialState, action) => {
 			};
 		case actionTypes.DELETE_ORDER:
 			const orders = state.orders.filter((order) => order.id !== action.orderId);
-			axios
-				.delete('/orders.json/', { data: { ID: action.orderId } })
-				.then((response) => console.log(response))
-				.then((error) => error);
 			return {
 				...state,
 				loading: false,
 				orders: orders
+			};
+		case actionTypes.DELETE_ORDER_ON_SERVER:
+			return {
+				...state
 			};
 		default:
 			return state;

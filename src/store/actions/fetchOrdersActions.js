@@ -41,12 +41,12 @@ export const deleteOrder = (id) => {
 	}
 }
 
-// export const deleterOrderOnServer = (orderData) => {
-// 	return dispatch => {
-//         dispatch(deleteOrder())
-//         axios
-// 			.post('/orders.json', orderData)
-// 			.then((response) => dispatch(purchaseBurgerSuccess(response.data, orderData)))
-// 			.then((error) => dispatch(purchaseBurgerFail(error)));
-//     }
-// }
+export const deleteOrderOnServer = (id) => {
+	return dispatch => {  
+		axios
+		.delete('/orders.json/' + id )
+		// { data: { ID: action.orderId } }
+		.then(() => dispatch(deleteOrder(id)))
+		.then((error) => error);
+    }
+}

@@ -38,7 +38,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		onGetOrders: () => dispatch(actions.getOrders()),
-		onDeleteOrder: (id) => dispatch(actions.deleteOrder(id))
+		onDeleteOrder: (id) => dispatch(actions.deleteOrderOnServer(id))
 	}
 }
 

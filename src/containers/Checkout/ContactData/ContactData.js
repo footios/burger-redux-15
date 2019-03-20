@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from '../../../axios-orders';
 import { connect } from 'react-redux';
 
 import Button from '../../../components/UI/Button/Button';
