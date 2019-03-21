@@ -44,8 +44,9 @@ export const deleteOrder = (id) => {
 export const deleteOrderOnServer = (id) => {
 	return dispatch => {  
 		axios
-		.delete('/orders.json/' + id )
-		// { data: { ID: action.orderId } }
+		// .delete('/orders.json/' + id ) // nothing!
+		// .delete('/orders.json/', id ) // deletes all orders
+		// .delete('/orders.json/', { data: { ID: id } } ) // everything
 		.then(() => dispatch(deleteOrder(id)))
 		.then((error) => error);
     }
