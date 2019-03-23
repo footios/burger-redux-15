@@ -14,7 +14,8 @@ class Auth extends Component {
 				},
 				value: '',
 				validation: {
-					required: true
+                    required: true,
+                    isEmail: true
 				},
 				touched: false,
 				valid: false
@@ -29,7 +30,6 @@ class Auth extends Component {
 				validation: {
                     required: true,
                     minLength: 1,
-					maxLength: 1
 				},
 				touched: false,
 				valid: false
@@ -55,7 +55,7 @@ class Auth extends Component {
 		return isValid;
     }
 
-    inputchangeHandler = (event, inputIdentifier) => {
+    inputChangeHandler = (event, inputIdentifier) => {
 		const updatedControl = {
 			...this.state.controls
 		}
@@ -68,15 +68,8 @@ class Auth extends Component {
 		updatedControl[inputIdentifier] = updatedControlElement
 		updatedControlElement.touched = true;
 		
-		let formIsValid = true;
-		for (let inputIdentifier in updatedControl) {
-			if (updatedControl.hasOwnProperty(inputIdentifier)) {
-				 formIsValid = updatedControl[inputIdentifier].valid && formIsValid;
-			}
-		}
-		console.log(formIsValid);
 		
-		this.setState({controls: updatedControl, formIsValid: formIsValid})
+		this.setState({controls: updatedControl})
 	}
     
 	render() {
@@ -94,16 +87,16 @@ class Auth extends Component {
 			<form>
 				{controlsArray.map((control) => (
 					<Input
-                        key={control.id}
+            key={control.id}
 						elementType={control.config.elementType}
 						elementConfig={control.config.elementConfig}
 						value={control.config.value}
 						inValid={!control.config.valid}
 						touched={control.config.touched}
-						changed={(event) => this.inputchangeHandler(event, control.id)}
+						changed={(event) => this.inputChangeHandler(event, control.id)}
 					/>
 				))}
-				<Button btnType="Success" disabled={!this.state.formIsValid} onClick={this.orderHandler}>
+				<Button btnType="Success" onClick={this.orderHandler}>
 					ORDER
 				</Button>
 			</form>
@@ -111,7 +104,7 @@ class Auth extends Component {
 		// if (this.props.loading) {
 		// 	form = <Spinner />;
 		// }
-		return <div className={classes.Controls}>{form}</div>;
+		return <div className={classes.Auth}>{form}</div>;
 	}
 }
 
