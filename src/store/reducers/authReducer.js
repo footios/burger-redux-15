@@ -1,27 +1,34 @@
 import * as actionTypes from '../actions/actionTypes'
+import { updateObject } from './utility'
 
 const initialState = {
-    loading: false,
-    authData: null
+    token: null,
+    userId: null,
+    error: null,
+    loading: false
+}
+
+const authStart = (state, action) => { 
+    return updateObject(state, {error: null, loading: true})
+}
+
+const authSuccess = (state, action) => { 
+    return updateObject(state, {
+        token: action.idToken, 
+        userId: action.userId,   
+        error: null, 
+        loading: false
+    })
+}
+const authFail = (state, action) => { 
+    return updateObject(state, {error: action.error, loading: false})
 }
 
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.AUTH_START:
-            return {
-                ...state,
-                loading: true
-            }
-        case actionTypes.AUTH_SUCCESS:
-            return {
-                authData: action.authData,
-                loading: false
-            }
-        case actionTypes.AUTH_FAIL:
-            return {
-                ...state,
-                loading: false,
-            }
+        case actionTypes.AUTH_START: return authStart(state, action)
+        case actionTypes.AUTH_SUCCESS:return authSuccess(state, action)
+        case actionTypes.AUTH_FAIL:return authFail(state, action)
         default:
             return state
     }
