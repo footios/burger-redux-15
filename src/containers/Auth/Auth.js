@@ -73,6 +73,13 @@ class Auth extends Component {
 		
 		this.setState({controls: updatedControls})
 	}
+
+	submitHandler = (event) => {
+		event.preventDefault();
+		const email = this.state.controls.email.value;
+		const password = this.state.controls.password.value;
+		this.props.onAuth(email, password)
+	}
     
 	render() {
         const controlsArray = [];
@@ -85,7 +92,7 @@ class Auth extends Component {
 			}
 		}
 		let form = (
-			<form>
+			<form onSubmit={this.submitHandler} >
 				{controlsArray.map((control) => (
 					<Input
             key={control.id}
@@ -97,9 +104,7 @@ class Auth extends Component {
 						changed={(event) => this.inputChangeHandler(event, control.id)}
 					/>
 				))}
-				<Button btnType="Success" onClick={this.orderHandler}>
-					SUBMIT
-				</Button>
+				<Button btnType="Success">SUBMIT</Button>
 			</form>
 		);
 		// if (this.props.loading) {
@@ -117,7 +122,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onAuthInit: () => dispatch(actions.initAuth())
+		onAuth: (email, password) => dispatch(actions.auth(email, password))
 	}
 }
 

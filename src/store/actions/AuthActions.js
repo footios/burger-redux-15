@@ -19,12 +19,12 @@ export const authFail = () => {
     }
 }
 
-export const initAuth = (authData) => {
+export const auth = (email, password) => {
   return dispatch => {
       dispatch(authStart());
-      axios
-      .post('/orders.json', authData)
-      .then((response) => dispatch(authSuccess(response.data, authData)))
-      .then((error) => dispatch(authFail(error)));
+    //   axios
+    //   .post('/orders.json', authData)
+    //   .then((response) => dispatch(authSuccess(response.data, authData)))
+    //   .then((error) => dispatch(authFail(error)));
   }
 }
