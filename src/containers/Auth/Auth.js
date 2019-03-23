@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 import classes from './Auth.module.css';
 
@@ -79,7 +80,7 @@ class Auth extends Component {
 		event.preventDefault();
 		const email = this.state.controls.email.value;
 		const password = this.state.controls.password.value;
-		const isSignup = this.state.isSignup
+		const isSignup = this.state.isSignup;
 		this.props.onAuth(email, password, isSignup);
 	};
 
@@ -111,27 +112,59 @@ class Auth extends Component {
 				changed={(event) => this.inputChangeHandler(event, control.id)}
 			/>
 		));
-		// if (this.props.loading) {
-		// 	form = <Spinner />;
-		// }
+		if (this.props.loading) {
+			form = <Spinner />;
+		}
+		let errorMessage = null;
+		if (this.props.error) {
+			console.log(this.props.error.message);
+			errorMessage = this.props.error.message;
+		}
+		switch (errorMessage) {
+			case 'EMAIL_EXISTS':
+				errorMessage = 'This e-mail address allready exista. Please switch to sign in.';
+				break;
+			case 'OPERATION_NOT_ALLOWED':
+				errorMessage = 'Please do not insert a password';
+				break;
+			case 'TOO_MANY_ATTEMPTS_TRY_LATER':
+				errorMessage = 'You have tried to many times to log in without success.' 
+				+ 'For security reasons we have blocked all requests for now. Please try again later';
+				break;
+			case 'INVALID_EMAIL':
+				errorMessage = 'Please insert a valid e-mail address.';
+				break;
+			case 'INVALID_PASSWORD':
+				errorMessage = 'The password was not correct. Please try again.';
+				break;
+			case 'USER_DISABLED':
+				errorMessage = 'This user is disabled. Please contact the administratorÍ';
+				break;
+			default:
+			  errorMessage = 'Something went wrong!'
+		}
 		return (
 			<div className={classes.Auth}>
 				<form onSubmit={this.submitHandler}>
-					<label>{this.state.isSignup ? 'Please sign up!' : 'Please sign in!'}</label>
+					{this.props.error ? (
+						<div style={{ color: 'red' }}>
+							{errorMessage}
+						</div>
+					) : (
+						<label>{this.state.isSignup ? 'Please sign up!' : 'Please sign in!'}</label>
+					)}
 					{form}
-					<Button btnType="Success">SUBMIT</Button>
+					<Button btnType="Success">{this.state.isSignup ? 'SUBMIT' : 'SIGN IN'}</Button>
 				</form>
 				<div>
-					<span style={{color:'red'}}>
-						{
-							this.state.isSignup 
-							? 
-							'If you already have an acount, you may:' 
-							: 
-							'If you don\'t have an acount, you may:'
-						}
+					<span style={{ color: '#944317' }}>
+						{this.state.isSignup ? (
+							'If you already have an acount, you may:'
+						) : (
+							"If you don't have an acount, you may:"
+						)}
 					</span>
-				</div>				
+				</div>
 				<Button btnType="Danger" clicked={this.switchAuthModeHandler}>
 					SWITCH TO {this.state.isSignup ? 'SIGN IN' : 'SIGN UP'}
 				</Button>
@@ -142,7 +175,8 @@ class Auth extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		loading: state.auth.loading
+		loading: state.auth.loading,
+		error: state.auth.error
 	};
 };
 
