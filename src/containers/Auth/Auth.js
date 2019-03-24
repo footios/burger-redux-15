@@ -128,8 +128,9 @@ class Auth extends Component {
 				errorMessage = 'Please do not insert a password';
 				break;
 			case 'TOO_MANY_ATTEMPTS_TRY_LATER':
-				errorMessage = 'You have tried to many times to log in without success.' 
-				+ 'For security reasons we have blocked all requests for now. Please try again later';
+				errorMessage =
+					'You have tried to many times to log in without success.' +
+					'For security reasons we have blocked all requests for now. Please try again later';
 				break;
 			case 'INVALID_EMAIL':
 				errorMessage = 'Please insert a valid e-mail address.';
@@ -141,21 +142,10 @@ class Auth extends Component {
 				errorMessage = 'This user is disabled. Please contact the administratorÍ';
 				break;
 			default:
-			  errorMessage = 'Something went wrong!'
+				errorMessage = 'Something went wrong!';
 		}
 		return (
 			<div className={classes.Auth}>
-				<form onSubmit={this.submitHandler}>
-					{this.props.error ? (
-						<div style={{ color: 'red' }}>
-							{errorMessage}
-						</div>
-					) : (
-						<label>{this.state.isSignup ? 'Please sign up!' : 'Please sign in!'}</label>
-					)}
-					{form}
-					<Button btnType="Success">{this.state.isSignup ? 'SUBMIT' : 'SIGN IN'}</Button>
-				</form>
 				<div>
 					<span style={{ color: '#944317' }}>
 						{this.state.isSignup ? (
@@ -168,6 +158,15 @@ class Auth extends Component {
 				<Button btnType="Danger" clicked={this.switchAuthModeHandler}>
 					SWITCH TO {this.state.isSignup ? 'SIGN IN' : 'SIGN UP'}
 				</Button>
+				<form onSubmit={this.submitHandler}>
+					{this.props.error ? (
+						<div style={{ color: 'red' }}>{errorMessage}</div>
+					) : (
+						<label>{this.state.isSignup ? 'Please sign up!' : 'Please sign in!'}</label>
+					)}
+					{form}
+					<Button btnType="Success">{this.state.isSignup ? 'SUBMIT' : 'SIGN IN'}</Button>
+				</form>
 			</div>
 		);
 	}

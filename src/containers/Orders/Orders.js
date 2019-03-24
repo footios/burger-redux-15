@@ -15,17 +15,25 @@ class Orders extends Component {
 
 	componentDidMount() {
 		// From orders we fetch an object.
-		this.props.onFetchOrders()
+		this.props.onFetchOrders(this.props.token)
 		
 	}
 
 	render() {
 	let orders = <Spinner />;
 	if (!this.props.loading) {
-		orders = this.props.orders.map((orders) => (
+		orders = this.props.orders.map((orders) => {
 			// Do this: price={+order.price} so the toFixed(2) will work in Order.js
-			<Order key={orders.id} ingredients={orders.ingredients} price={orders.price} />
-		))
+			const ingredients = {
+				salad: orders.ingredients.salad,
+				bacon: orders.ingredients.bacon,
+				cheese: orders.ingredients.cheese,
+				meat: orders.ingredients.meat
+			}
+			console.log(ingredients);
+
+			return <Order key={orders.id} ingredients={ingredients} price={orders.price} />
+	})
 	}
 		return orders;
 	}
@@ -34,13 +42,14 @@ class Orders extends Component {
 const mapStateToProps = state => {
 	return {
 		orders: state.order.orders,
-		loading: state.order.loading
+		loading: state.order.loading,
+		token: state.auth.token
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onFetchOrders: () => dispatch(actions.fetchOrders())
+		onFetchOrders: (token) => dispatch(actions.fetchOrders(token))
 	}
 }
 
