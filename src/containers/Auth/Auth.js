@@ -123,7 +123,7 @@ class Auth extends Component {
 		}
 		switch (errorMessage) {
 			case 'EMAIL_EXISTS':
-				errorMessage = 'This e-mail address allready exista. Please switch to sign in.';
+				errorMessage = 'This e-mail address allready exists. Please switch to sign in.';
 				break;
 			case 'OPERATION_NOT_ALLOWED':
 				errorMessage = 'Please do not insert a password';
@@ -148,20 +148,24 @@ class Auth extends Component {
 
 		let authRedirect = null;
 		if (this.props.isAuthenticated) {
-			authRedirect = <Redirect to='/' />
+			if (this.props.ings) {
+				authRedirect = <Redirect to='/checkout' />
+			} else {
+				authRedirect = <Redirect to='/' />
+			}
 		}
 		return (
 			<div className={classes.Auth}>
 			{authRedirect}
-				{/* <div>
+				<div>
 					<span style={{ color: '#944317' }}>
-						{this.state.isSignup ? (
-							'If you already have an acount, you may:'
+						{this.props.ings ? (
+							'Your order is almost ready! So please sign in/up to continue.'
 						) : (
-							"If you don't have an acount, you may:"
+							null
 						)}
 					</span>
-				</div> */}
+				</div>
 				<Button btnType="Danger" clicked={this.switchAuthModeHandler}>
 					SWITCH TO {this.state.isSignup ? 'SIGN IN' : 'SIGN UP'}
 				</Button>
@@ -183,6 +187,7 @@ class Auth extends Component {
 
 const mapStateToProps = (state) => {
 	return {
+		ings: state.burgerBuilder.ingredients !== null,
 		loading: state.auth.loading,
 		error: state.auth.error,
 		isAuthenticated: state.auth.token !== null

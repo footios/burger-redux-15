@@ -49,7 +49,11 @@ class BurgerBuilder extends Component {
 
   purchaseContinueHandler = () => {
     this.props.onInitPurchase()
-    this.props.history.push('/checkout')
+    if (!this.props.isAuthenticated) {
+      this.props.history.push('/auth')
+    } else {
+      this.props.history.push('/checkout')
+    }
   };
 
   render() {
@@ -60,6 +64,8 @@ class BurgerBuilder extends Component {
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
     }
+
+    
 
     let burger = this.props.error ? (
       <p>Ingredients can't be loaded</p>
@@ -115,7 +121,8 @@ const mapStateToProps = state => {
  return {
     ings: state.burgerBuilder.ingredients,
    price: state.burgerBuilder.totalPrice,
-   error: state.burgerBuilder.error
+   error: state.burgerBuilder.error,
+   isAuthenticated: state.auth.token !== null
 }
 } 
 
