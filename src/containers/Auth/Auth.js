@@ -146,7 +146,7 @@ class Auth extends Component {
 		}
 		return (
 			<div className={classes.Auth}>
-				<div>
+				{/* <div>
 					<span style={{ color: '#944317' }}>
 						{this.state.isSignup ? (
 							'If you already have an acount, you may:'
@@ -154,16 +154,18 @@ class Auth extends Component {
 							"If you don't have an acount, you may:"
 						)}
 					</span>
-				</div>
+				</div> */}
 				<Button btnType="Danger" clicked={this.switchAuthModeHandler}>
 					SWITCH TO {this.state.isSignup ? 'SIGN IN' : 'SIGN UP'}
 				</Button>
-				<form onSubmit={this.submitHandler}>
+				<div>
 					{this.props.error ? (
 						<div style={{ color: 'red' }}>{errorMessage}</div>
 					) : (
 						<label>{this.state.isSignup ? 'Please sign up!' : 'Please sign in!'}</label>
 					)}
+				</div>
+				<form onSubmit={this.submitHandler}>
 					{form}
 					<Button btnType="Success">{this.state.isSignup ? 'SUBMIT' : 'SIGN IN'}</Button>
 				</form>
