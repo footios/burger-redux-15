@@ -3,6 +3,7 @@ import Eject from "../Eject/Eject";
 import classes from "./Layout.module.css";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
+import { connect } from 'react-redux'
 
 // We moved Layout to hoc because it wraps the BurgerBuilder
 // in the App comp.
@@ -33,7 +34,7 @@ class Layout extends Component {
   render() {
     return (
       <Eject>
-        <Toolbar DrawerToggleClicked={this.sideDrawerToggleHandler} />
+        <Toolbar isAuth={this.props.isAuthenticated} DrawerToggleClicked={this.sideDrawerToggleHandler} />
         <SideDrawer
           open={this.state.showSideDrawer}
           closed={this.sideDrawerClosedHandler}
@@ -44,4 +45,10 @@ class Layout extends Component {
   }
 }
 
-export default Layout;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== null
+  }
+}
+
+export default connect(mapStateToProps)(Layout);
