@@ -14,13 +14,13 @@ class Orders extends Component {
 	};
 
 	componentDidMount() {
-		localStorage.setItem('visitingPath', '/orders') // addition from Q&A
+		// localStorage.setItem('visitingPath', '/orders') // addition from Q&A
 		// From orders we fetch an object.
 		this.props.onFetchOrders(this.props.token);
 	}
 
 	componentWillUnmount() {
-		localStorage.removeItem('visitingPath') // addition from Q&A
+		// localStorage.removeItem('visitingPath') // addition from Q&A
 	}
 
 	render() {

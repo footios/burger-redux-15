@@ -9,6 +9,7 @@ import Auth from './containers/Auth/Auth';
 import Logout from './containers/Logout/Logout';
 import { connect } from 'react-redux';
 import * as actions from './store/actions';
+import Spinner from './components/UI/Spinner/Spinner'
 
 class App extends Component {
 	componentDidMount() {
@@ -38,7 +39,7 @@ class App extends Component {
 		}
 		return (
 			<div>
-				<Layout>{routes}</Layout>
+				<Layout>{this.props.isAuthInitialized ? routes : <Spinner /> }</Layout>
 			</div>
 		);
 	}
@@ -46,7 +47,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    isAuthInitialized: state.auth.authInitialized
 	};
 };
 

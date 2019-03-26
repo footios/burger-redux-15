@@ -18,12 +18,13 @@ class BurgerBuilder extends Component {
 	};
 	componentDidMount = () => {
 		console.log('BurgerBuilder', this.props);
-		const pageToVisit = localStorage.getItem('visitingPath') // from Q&A
-		if (pageToVisit !== null) {
-			this.props.history.replace(pageToVisit)
-		} else {
-			this.props.onInitBurger();
-		}
+		// const pageToVisit = localStorage.getItem('visitingPath') // from Q&A
+		// if (pageToVisit !== null) {
+		// 	this.props.history.replace(pageToVisit)
+		// } else {
+		// 	this.props.onInitBurger();
+		// }
+		this.props.onInitBurger();
 	};
 
 	updatePurchaseState(ingredients) {
