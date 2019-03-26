@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Eject from "../../../hoc/Eject/Eject";
 import Button from "../../UI/Button/Button";
+import { connect } from 'react-redux'
 
 // Note: the Modal wraps the OrderSummary and that of course
 // means that whenever ingredients or the price changes
@@ -37,7 +38,8 @@ class OrderSummary extends Component {
         <p>
           <strong>Total Price: {this.props.price}</strong>
         </p>
-        <p>Continue to Checkout?</p>
+        {this.props.isAuthenticated ? <p>Continue to Checkout?</p> : <p>Continue to sign up/in?</p>}
+        
         <Button btnType="Danger" clicked={this.props.purchaseCanselled}>
           CANCEL
         </Button>
@@ -49,4 +51,10 @@ class OrderSummary extends Component {
   }
 }
 
-export default OrderSummary;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+}
+
+export default connect(mapStateToProps)(OrderSummary);
