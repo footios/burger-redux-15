@@ -16,6 +16,15 @@ class BurgerBuilder extends Component {
 		purchasing: false,
 		loading: false
 	};
+	componentDidMount = () => {
+		console.log('BurgerBuilder', this.props);
+		const pageToVisit = localStorage.getItem('visitingPath') // from Q&A
+		if (pageToVisit !== null) {
+			this.props.history.replace(pageToVisit)
+		} else {
+			this.props.onInitBurger();
+		}
+	};
 
 	updatePurchaseState(ingredients) {
 		const sum = Object.keys(ingredients).map((ing) => ingredients[ing]).reduce((acc, elem) => {
@@ -24,18 +33,7 @@ class BurgerBuilder extends Component {
 		return sum > 0;
 	}
 
-	componentDidMount = () => {
-		console.log('BurgerBuilder', this.props);
-
-		this.props.onInitBurger();
-		// axios
-		//   .get("/ingredients.json")
-		//   .then(response => this.setState({ ingredients: response.data }))
-		//   .catch(error => {
-		//     this.setState({ error: true });
-		//   });
-	};
-
+	
 	purchaseHandler = () => {
 		if (this.props.isAuthenticated) {
 			this.setState({ purchasing: true });

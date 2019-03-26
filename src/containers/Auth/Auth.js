@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
@@ -45,13 +45,12 @@ class Auth extends Component {
 		isSignup: true
 	};
 
-	
 	componentDidMount() {
 		if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
-			this.props.onSetAuthRedirectpath()
+			this.props.onSetAuthRedirectpath();
 		}
 	}
-	
+
 	checkValidity(value, rules) {
 		let isValid = true;
 
@@ -155,20 +154,11 @@ class Auth extends Component {
 
 		let authRedirect = null;
 		if (this.props.isAuthenticated) {
-			authRedirect = <Redirect to={this.props.authRedirectPath} />
+			authRedirect = <Redirect to={this.props.authRedirectPath} />;
 		}
 		return (
 			<div className={classes.Auth}>
-			{authRedirect}
-				{/* <div>
-					<span style={{ color: '#944317' }}>
-						{this.state.isSignup ? (
-							'If you already have an acount, you may:'
-						) : (
-							"If you don't have an acount, you may:"
-						)}
-					</span>
-				</div> */}
+				{authRedirect}
 				<Button btnType="Danger" clicked={this.switchAuthModeHandler}>
 					SWITCH TO {this.state.isSignup ? 'SIGN IN' : 'SIGN UP'}
 				</Button>
