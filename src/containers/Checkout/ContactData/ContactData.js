@@ -10,6 +10,9 @@ import classes from './ContactData.module.css';
 
 //child of Checkout
 class ContactData extends Component {
+
+ email = localStorage.getItem('email')
+	
 	state = {
 		orderForm: {
 			name: {
@@ -72,7 +75,7 @@ class ContactData extends Component {
 					type: 'email',
 					placeholder: 'e-mail'
 				},
-				value: '',
+				value: this.email,
 				validation: {
 					required: true
 				},
@@ -104,6 +107,7 @@ class ContactData extends Component {
 			if (this.state.orderForm.hasOwnProperty(orderFormIdentifier)) {
 				 formData[orderFormIdentifier] = this.state.orderForm[orderFormIdentifier].value;
 			}
+			
 		}
 		this.setState({ loading: true });
 		const order = {
