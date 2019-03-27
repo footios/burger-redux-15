@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
-import * as actions from '../../../store/actions'
+import * as actions from '../../../store/actions';
+import { updateObject } from '../../../shared/utility';
 
 import classes from './ContactData.module.css';
 
 //child of Checkout
 class ContactData extends Component {
+	email = localStorage.getItem('email');
 
- email = localStorage.getItem('email')
-	
 	state = {
 		orderForm: {
 			name: {
@@ -26,7 +26,7 @@ class ContactData extends Component {
 					required: true
 				},
 				touched: false,
-				valid: false,
+				valid: false
 			},
 			street: {
 				elementType: 'input',
@@ -39,7 +39,7 @@ class ContactData extends Component {
 					required: true
 				},
 				touched: false,
-				valid: false,
+				valid: false
 			},
 			zipCode: {
 				elementType: 'input',
@@ -54,7 +54,7 @@ class ContactData extends Component {
 					maxLength: 5
 				},
 				touched: false,
-				valid: false,
+				valid: false
 			},
 			country: {
 				elementType: 'input',
@@ -67,7 +67,7 @@ class ContactData extends Component {
 					required: true
 				},
 				touched: false,
-				valid: false,
+				valid: false
 			},
 			email: {
 				elementType: 'input',
@@ -80,20 +80,20 @@ class ContactData extends Component {
 					required: true
 				},
 				touched: false,
-				valid: false,
+				valid: false
 			},
 			deliveryMethod: {
-                elementType: 'select',
-                elementConfig: {
-                    options: [
-                        {value: 'fastest', displayValue: 'fastest'},
-                        {value: 'cheapest', displayValue: 'cheapest'}
-                    ]
-                },
+				elementType: 'select',
+				elementConfig: {
+					options: [
+						{ value: 'fastest', displayValue: 'fastest' },
+						{ value: 'cheapest', displayValue: 'cheapest' }
+					]
+				},
 				value: 'fastest', // we fix this later
 				valid: true, // needed for formIsValid...
 				validation: {} // no need validation
-            }
+			}
 		},
 		formIsValid: false,
 		loading: false
@@ -105,9 +105,8 @@ class ContactData extends Component {
 		const formData = {};
 		for (const orderFormIdentifier in this.state.orderForm) {
 			if (this.state.orderForm.hasOwnProperty(orderFormIdentifier)) {
-				 formData[orderFormIdentifier] = this.state.orderForm[orderFormIdentifier].value;
+				formData[orderFormIdentifier] = this.state.orderForm[orderFormIdentifier].value;
 			}
-			
 		}
 		this.setState({ loading: true });
 		const order = {
@@ -117,50 +116,49 @@ class ContactData extends Component {
 			userId: this.props.userId
 		};
 
-		this.props.onOrderBurger(order, this.props.token)
+		this.props.onOrderBurger(order, this.props.token);
 	};
 
 	checkValidity(value, rules) {
 		let isValid = true;
-	
+
 		if (rules.required) {
 			isValid = value.trim() !== '' && isValid;
 		}
-		
+
 		if (rules.minLength) {
-			isValid = value.length >= rules.minLength && isValid
+			isValid = value.length >= rules.minLength && isValid;
 		}
 
 		if (rules.maxLength) {
-			isValid = value.length <= rules.maxLength && isValid
+			isValid = value.length <= rules.maxLength && isValid;
 		}
 
 		return isValid;
 	}
-	
+
 	inputchangeHandler = (event, inputIdentifier) => {
-		const updatedOrderForm = {
-			...this.state.orderForm
-		}
-		const updatedFormElement = {
-			...updatedOrderForm[inputIdentifier] 
-		}
-		updatedFormElement.value = event.target.value 
-		const rules = updatedFormElement.validation
-		updatedFormElement.valid = this.checkValidity(updatedFormElement.value, rules);
-		updatedOrderForm[inputIdentifier] = updatedFormElement
+		const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+			value: event.target.value,
+			valid: this.checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+			touched: true
+		});
+		const updatedOrderForm = updateObject(this.state.orderForm, {
+			[inputIdentifier]: updatedFormElement
+		});
+
 		updatedFormElement.touched = true;
-		
+
 		let formIsValid = true;
 		for (let inputIdentifier in updatedOrderForm) {
 			if (updatedOrderForm.hasOwnProperty(inputIdentifier)) {
-				 formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+				formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
 			}
 		}
 		console.log(formIsValid);
-		
-		this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid})
-	}
+
+		this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
+	};
 
 	render() {
 		const formElementsArray = [];
@@ -176,7 +174,7 @@ class ContactData extends Component {
 			<form onSubmit={this.orderHandler}>
 				{formElementsArray.map((formElement) => (
 					<Input
-                        key={formElement.id}
+						key={formElement.id}
 						elementType={formElement.config.elementType}
 						elementConfig={formElement.config.elementConfig}
 						value={formElement.config.value}
@@ -212,10 +210,10 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
 	return {
 		onOrderBurger: (order, token) => dispatch(actions.purchaseBurger(order, token))
-	}
-}
+	};
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
