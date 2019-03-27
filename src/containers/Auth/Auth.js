@@ -50,6 +50,12 @@ class Auth extends Component {
 			this.props.onSetAuthRedirectpath();
 		}
 	}
+	
+	componentWillUnmount() {
+		const email = this.state.controls.email.value;
+		localStorage.setItem('email', email) // gets removed with logout in AuthActions
+	}
+	
 
 	checkValidity(value, rules) {
 		let isValid = true;
