@@ -6,6 +6,7 @@ import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
 
 // child of Layout
 const toolbar = props => {
+  
   const email = localStorage.getItem('email')
   return (
     <header className={classes.Toolbar}>

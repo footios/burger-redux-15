@@ -12,7 +12,10 @@ import { connect } from 'react-redux';
 class Layout extends Component {
 	state = {
 		showSideDrawer: false
-	};
+  };
+
+ 
+  
 	componentDidMount() {
 		window.addEventListener('resize', () => {
 			this.setState({ showSideDrawer: window.innerWidth < 500 });
