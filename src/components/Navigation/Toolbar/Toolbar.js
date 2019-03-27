@@ -13,7 +13,7 @@ const toolbar = props => {
       <div className={classes.Logo}>
         <Logo />
       </div>
-      <div className={classes.UserEmail} > User: {email} </div>
+      <div className={classes.UserEmail} > {email} </div>
       <nav className={classes.DesktopOnly}>
         <NavigationItems  isAuthenticated={props.isAuth} />
       </nav>
