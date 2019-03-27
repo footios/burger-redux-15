@@ -11,14 +11,14 @@ const navigationItems = (props) => {
 
 		// Now we no longer need to pass that info so we removed 'active'
 		<ul className={classes.NavigationItems}>
-			<NavigationItem link="/" exact>
+			<NavigationItem clicked={props.clicked} link="/" exact>
 				Burger Builder
 			</NavigationItem>
-			{props.isAuthenticated ? <NavigationItem link="/orders">Orders</NavigationItem> : null}
+			{props.isAuthenticated ? <NavigationItem clicked={props.clicked} link="/orders">Orders</NavigationItem> : null}
 			{props.isAuthenticated ? (
-				<NavigationItem link="/logout">Logout</NavigationItem>
+				<NavigationItem clicked={props.clicked} link="/logout">Logout</NavigationItem>
 			) : (
-				<NavigationItem link="/auth">Authentication</NavigationItem>
+				<NavigationItem clicked={props.clicked} link="/auth">Authentication</NavigationItem>
 			)}
 			
 		</ul>

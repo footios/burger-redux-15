@@ -21,7 +21,7 @@ const navigationItem = props => {
   // and then here we can use that prop...
   return (
     <li className={classes.NavigationItem}>
-      <NavLink to={props.link} exact={props.exact} activeClassName={classes.active}>
+      <NavLink to={props.link} exact={props.exact} activeClassName={classes.active} onClick={props.clicked}>
         {props.children}
       </NavLink>
     </li>
