@@ -99,6 +99,17 @@ class ContactData extends Component {
 		loading: false
 	};
 
+	componentDidMount() {
+		if (this.props.token !== null) {
+			this.setState((state) => {
+				state.orderForm.email.validation.required = false;
+				state.orderForm.email.valid = true;
+				state.orderForm.email.touched = true;
+				return state;
+			});
+		}
+	}
+
 	orderHandler = (event) => {
 		event.preventDefault();
 		console.log('in orderHandler: ', this.props);
@@ -147,14 +158,13 @@ class ContactData extends Component {
 			[inputIdentifier]: updatedFormElement
 		});
 
-		updatedFormElement.touched = true;
-
 		let formIsValid = true;
 		for (let inputIdentifier in updatedOrderForm) {
 			if (updatedOrderForm.hasOwnProperty(inputIdentifier)) {
 				formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
 			}
 		}
+
 		console.log(formIsValid);
 
 		this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
