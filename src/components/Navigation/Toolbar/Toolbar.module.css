@@ -36,7 +36,7 @@
   position: relative;
   animation-name: email;
   animation-duration: 2s;
-  animation-delay: 1s;
+  animation-delay: 0s;
   animation-iteration-count: 1s
 }
 @keyframes email {
