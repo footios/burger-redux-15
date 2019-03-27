@@ -21,8 +21,28 @@
   height: 80%;
 }
 
+
+
 @media (max-width: 499px) {
   .DesktopOnly {
     display: none;
   }
+}
+
+.UserEmail {
+  color: white;
+  display: flex;
+  margin: 50% 0px 50% 200px;
+  position: relative;
+  animation-name: email;
+  animation-duration: 8s;
+  animation-delay: 1s;
+  animation-iteration-count: 1s
+}
+@keyframes email {
+  0%   {left:0px; top:0px;}
+  25%  {left:-300px; top:0px;}
+  50%  {left:100px; top:0px;}
+  75%  {left:-300px; top:0px;}
+  100% {left:0px; top:0px;}
 }

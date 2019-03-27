@@ -3,6 +3,7 @@ import classes from './NavigationItems.module.css';
 import NavigationItem from './NavigationItem/NavigationItem';
 
 const navigationItems = (props) => {
+	
 	return (
 		// Because the 'active' attribute is a boolean value
 		// we don't need to set active={true}
@@ -19,6 +20,7 @@ const navigationItems = (props) => {
 			) : (
 				<NavigationItem link="/auth">Authentication</NavigationItem>
 			)}
+			
 		</ul>
 	);
 };
