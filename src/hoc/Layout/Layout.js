@@ -35,7 +35,7 @@ class Layout extends Component {
 	render() {
 		return (
 			<Eject>
-				<Toolbar loading={this.props.loading} isAuth={this.props.isAuthenticated} DrawerToggleClicked={this.sideDrawerToggleHandler} />
+				<Toolbar isAuth={this.props.isAuthenticated} DrawerToggleClicked={this.sideDrawerToggleHandler} />
 				<SideDrawer
 					isAuth={this.props.isAuthenticated}
 					open={this.state.showSideDrawer}

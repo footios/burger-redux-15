@@ -40,6 +40,6 @@
   animation-iteration-count: 1s
 }
 @keyframes email {
-  0%   {left:-350px; top:0px;}
+  0%   {left:-550px; top:0px;}
   100% {left:0px; top:0px;}
 }
