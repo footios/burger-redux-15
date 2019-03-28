@@ -14,8 +14,6 @@ class Layout extends Component {
 		showSideDrawer: false
   };
 
- 
-  
 	componentDidMount() {
 		window.addEventListener('resize', () => {
 			this.setState({ showSideDrawer: window.innerWidth < 500 });
@@ -37,7 +35,7 @@ class Layout extends Component {
 	render() {
 		return (
 			<Eject>
-				<Toolbar isAuth={this.props.isAuthenticated} DrawerToggleClicked={this.sideDrawerToggleHandler} />
+				<Toolbar loading={this.props.loading} isAuth={this.props.isAuthenticated} DrawerToggleClicked={this.sideDrawerToggleHandler} />
 				<SideDrawer
 					isAuth={this.props.isAuthenticated}
 					open={this.state.showSideDrawer}
@@ -51,7 +49,8 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isAuthenticated: state.auth.token !== null
+		isAuthenticated: state.auth.token !== null,
+		loading: state.auth.loading
 	};
 };
 
