@@ -8,10 +8,6 @@ import * as actions from '../../store/actions';
 import { connect } from 'react-redux';
 
 class Orders extends Component {
-	state = {
-		orders: [],
-		loading: true
-	};
 
 	componentDidMount() {
 		// From orders we fetch an object.
@@ -29,7 +25,7 @@ class Orders extends Component {
 					cheese: orders.ingredients.cheese,
 					meat: orders.ingredients.meat
 				};
-				return <Order key={orders.id} ingredients={ingredients} price={orders.price} />;
+				return <Order key={orders.id} ingredients={ingredients} price={orders.price} date={orders.date}/>;
 			});
 		}
 		return orders;

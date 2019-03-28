@@ -13,6 +13,11 @@ export const fetchOrdersReducer = (state = initialState, action) => {
 				orders: [ ...action.orders ], // concat is not working as expected!!!
 				loading: false
 			};
+		case actionTypes.FETCH_ORDERS_START:
+			return {
+				...state,
+				loading: true
+			};
 		case actionTypes.FETCH_ORDERS_FAIL:
 			return {
 				...state,
