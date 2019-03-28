@@ -121,7 +121,15 @@ class ContactData extends Component {
 		}
 		this.setState({ loading: true });
 		const date = new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear()
-		const time = new Date().getHours() + ":" + new Date().getMinutes()
+		const minutes = () => {
+			let minutes = new Date().getMinutes()
+			if (minutes <= 9) {
+				return "0" + minutes
+			} else {
+				return minutes
+			}
+		}
+		const time = new Date().getHours() + ":" + minutes()
 		
 		const order = {
 			ingredients: this.props.ings,
