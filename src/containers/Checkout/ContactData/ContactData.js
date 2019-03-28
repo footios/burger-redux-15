@@ -125,7 +125,7 @@ class ContactData extends Component {
 			price: this.props.price,
 			orderData: formData,
 			userId: this.props.userId,
-			date: new Date()
+			date: Date.now()
 		};
 
 		this.props.onOrderBurger(order, this.props.token);
