@@ -9,8 +9,16 @@ const controls = [
   { label: "Meat", type: "meat" }
 ];
 
-const buildControls = props => (
-  <div className={classes.BuildControls}>
+const buildControls = props => {
+
+  let button = 'START ADDING INGREDIENTS'
+  if (props.isAuth) {
+    button = 'ORDER NOW'
+  } else if (props.building && !props.isAuth) {
+    button = 'BURGER READY? SIGN UP AND ORDER'
+  }
+  return (
+    <div className={classes.BuildControls}>
     <p>
       Current Price: <strong>{props.price.toFixed(2)}</strong>
     </p>
@@ -28,10 +36,13 @@ const buildControls = props => (
       disabled={!props.purchasable}
       onClick={props.ordered}
     >
-    {props.isAuth ? 'ORDER NOW' : 'SIGN UP TO ORDER' }
+    {button }
       
     </button>
   </div>
-);
+  )
+}
+  
+
 
 export default buildControls;
