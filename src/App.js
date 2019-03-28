@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import asyncComponent from './hoc/asyncComponent/asyncComponent'
+import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
@@ -12,22 +12,21 @@ import { connect } from 'react-redux';
 import * as actions from './store/actions';
 import Spinner from './components/UI/Spinner/Spinner';
 
-
 const asyncCheckout = asyncComponent(() => {
-	return import('./containers/Checkout/Checkout')
-})
+	return import('./containers/Checkout/Checkout');
+});
 
 const asyncOrders = asyncComponent(() => {
-	return import('./containers/Orders/Orders')
-})
+	return import('./containers/Orders/Orders');
+});
 
 const asyncAuth = asyncComponent(() => {
-	return import('./containers/Auth/Auth')
-})
+	return import('./containers/Auth/Auth');
+});
 
 const asyncLogout = asyncComponent(() => {
-	return import('./containers/Logout/Logout')
-})
+	return import('./containers/Logout/Logout');
+});
 
 class App extends Component {
 	componentDidMount() {
@@ -44,10 +43,6 @@ class App extends Component {
 		);
 		if (this.props.isAuthenticated) {
 			routes = (
-				// <Switch>
-				// 	<Route path="/checkout" render={<Suspense fallback={<Spinner />}> <Checkout /> </Suspense>} />
-				// </Switch>
-
 				<Switch>
 					{/* With just 'exact' the order doesn't matter, but with Switch it does! */}
 					{/* The 'exact' in the Route with path='/checkout' was preventing the ContactData to render */}
