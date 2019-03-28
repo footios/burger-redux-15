@@ -112,7 +112,6 @@ class ContactData extends Component {
 
 	orderHandler = (event) => {
 		event.preventDefault();
-		console.log('in orderHandler: ', this.props);
 		const formData = {};
 		for (const orderFormIdentifier in this.state.orderForm) {
 			if (this.state.orderForm.hasOwnProperty(orderFormIdentifier)) {
@@ -158,9 +157,6 @@ class ContactData extends Component {
 				formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
 			}
 		}
-
-		console.log(formIsValid);
-
 		this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
 	};
 

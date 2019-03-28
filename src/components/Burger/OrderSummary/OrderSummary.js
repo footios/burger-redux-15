@@ -12,11 +12,6 @@ import Button from "../../UI/Button/Button";
 
 // child of BurgerBuiler
 class OrderSummary extends Component {
-  //  this could be a functional component,
-  // doesn't have to be a class.
-  componentWillUpdate() {
-    console.log("OrderSummary will update");
-  }
 
   render() {
     const ingredientSummary = Object.keys(this.props.ingredients).map(

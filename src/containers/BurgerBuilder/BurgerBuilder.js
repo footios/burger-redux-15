@@ -17,7 +17,6 @@ class BurgerBuilder extends Component {
 		loading: false
 	};
 	componentDidMount = () => {
-		console.log('BurgerBuilder', this.props);
 		this.props.onInitBurger();
 	};
 
