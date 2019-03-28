@@ -120,12 +120,15 @@ class ContactData extends Component {
 			}
 		}
 		this.setState({ loading: true });
+		const date = new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear()
+		const time = new Date().getHours() + ":" + new Date().getMinutes()
+		
 		const order = {
 			ingredients: this.props.ings,
 			price: this.props.price,
 			orderData: formData,
 			userId: this.props.userId,
-			date: Date.now()
+			date: date + " at " + time
 		};
 
 		this.props.onOrderBurger(order, this.props.token);
