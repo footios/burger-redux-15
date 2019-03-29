@@ -8,8 +8,10 @@ import NavigationItem from './NavigationItem/NavigationItem';
 configure({ adapter: new Adapter() });
 describe('<NavigationItems /> ', () => {
 	let wrapper;
-
+    let wrapperWithAuth;
+    
 	wrapper = shallow(<NavigationItems />);
+	wrapperWithAuth = shallow(<NavigationItems isAuthenticated />);
     
 	it('render 2 NavigationItem elems if not auth', () => {
         expect(wrapper.find(NavigationItem)).toHaveLength(2);
@@ -17,7 +19,14 @@ describe('<NavigationItems /> ', () => {
     
 	it('render 3 NavigationItem elems if yes auth', () => {
         // wrapper = shallow(<NavigationItems isAuthenticated />);
-        wrapper.setProps({isAuthenticated: true})
-		expect(wrapper.find(NavigationItem)).toHaveLength(3);
+       // wrapper.setProps({isAuthenticated: true})
+		expect(wrapperWithAuth.find(NavigationItem)).toHaveLength(3);
+    });
+    
+    it('render 3 NavigationItem elems if yes auth', () => {
+        // wrapper = shallow(<NavigationItems isAuthenticated />);
+        //wrapper.setProps({isAuthenticated: true})
+        expect(wrapperWithAuth.contains(<NavigationItem link='/logout' >Logout</NavigationItem>))
+        .toEqual(true)
 	});
 });
