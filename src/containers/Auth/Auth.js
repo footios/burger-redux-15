@@ -110,7 +110,6 @@ class Auth extends Component {
 		}
 		let errorMessage = null;
 		if (this.props.error) {
-			console.log(this.props.error.message);
 			errorMessage = this.props.error.message;
 		}
 		switch (errorMessage) {
@@ -135,7 +134,7 @@ class Auth extends Component {
 				errorMessage = 'This user is disabled. Please contact the administratorÍ';
 				break;
 			default:
-				errorMessage = 'Something went wrong!';
+				errorMessage = 'Something went wrong! Check internet connection!';
 		}
 
 		let authRedirect = null;
