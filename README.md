@@ -30,6 +30,13 @@
 
 > Section 20
 
-> Testing
+> Testing 
 
 > Lectures 375 - 386
+
+
+> Section 21
+
+> Deploying the App to the Web
+
+> Lectures 387 - 392

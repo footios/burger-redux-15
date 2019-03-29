@@ -20,7 +20,7 @@ const authSuccess = (state, action) => {
         userId: action.userId,   
         error: null, 
         loading: false
-    })
+    }) 
 }
 const authFail = (state, action) => { 
     return updateObject(state, {error: action.error, loading: false})

@@ -18,6 +18,6 @@ describe('authReducer', () => {
             ...initialState,
             token: 'token',
             userId: 'userId',
-        })
+        }) 
     })
 })
