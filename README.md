@@ -41,4 +41,29 @@
 
 > Lectures 387 - 392
 
-Time (with repetitions) 320 hours in 2 1/2 (two and a half) months.
+Time for all sections (1 -21, with repetitions) 
+320 hours 
+in 2 1/2 (two and a half) months.
+
+
+
+> Section 25
+
+> Bonus: A Brief Introduction to Redux Saga
+
+> Lectures 340 - 451
+
+Sometimes we have code in the action creators...
+but you could make the argument that you want action creators 
+or the whole idea of dispatching actions
+to be very clean, that you don't want to have any other code in there 
+which is not really related to dispatching
+an action and this is where `redux saga` comes in.
+
+With `redux-saga`,
+you create so-called `sagas` which are essentially kind of `functions` 
+which you run up on certain actions
+and which handle all your side effect logic 
+and a side effect simply is something like 
+accessing local storage, reaching out to a server, 
+maybe changing the route or executing a timer like this here.
