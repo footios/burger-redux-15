@@ -5,6 +5,8 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import createSagaMiddleware from 'redux-saga'
+
 
 import './index.css';
 import App from './App';
@@ -13,10 +15,15 @@ import { burgerBuilderReducer } from './store/reducers/burgerBuilderReducer';
 import { orderReducer } from './store/reducers/orderReducer'
 import { fetchOrdersReducer } from './store/reducers/fetchOrdersReducer'
 import { authReducer } from './store/reducers/authReducer'
+import { logoutSaga } from './store/sagas/auth'
+
+const sagaMiddleware = createSagaMiddleware();
 
 let devtools = process.env.NODE_ENV === 'development' 
-? composeWithDevTools(applyMiddleware(thunk))
-: applyMiddleware(thunk)
+? composeWithDevTools(applyMiddleware(thunk, sagaMiddleware))
+: applyMiddleware(thunk, sagaMiddleware)
+
+
 
 // const composeEnhancers = process.env.NODE_ENV === 'development' ?
 //  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
@@ -28,7 +35,10 @@ const rootReducer = combineReducers({
 	auth: authReducer
 })
 
+
 const store = createStore(rootReducer, devtools);
+
+sagaMiddleware.run(logoutSaga)
 
 // Note curly braces didn't work!
 const app = (

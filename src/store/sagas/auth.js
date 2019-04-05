@@ -6,7 +6,7 @@ import * as actionTypes from '../actions/actionTypes';
 // yiels means that this step should be executed and wait 
 // for it to finish.
 // We need to hook up this function to the store.
-function* logout(action) {
+export function* logoutSaga(action) {
 	yield localStorage.removeItem('token');
 	yield localStorage.removeItem('expirationDate');
 	yield localStorage.removeItem('userId');
