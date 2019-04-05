@@ -67,3 +67,17 @@ and which handle all your side effect logic
 and a side effect simply is something like 
 accessing local storage, reaching out to a server, 
 maybe changing the route or executing a timer like this here.
+
+
+### Comments
+
+443. 
+When logoutAuth is dispatched (from another action like `authCheckState`) we dispatch the AUTH_INITIATE_LOGOUT action, 
+which then via `yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga)` in
+`watchAuth` calls `logoutSaga`. And `watchAuth` can listen to actions of the store,
+because of this `sagaMiddleware.run(watchAuth)` in index.js of our app.
+
+444. 
+We could delete all our action creators. But we keep them to have a reliable way of creating our actions. So, now we can call action creators from our `sagas`, instead of hard-coding `actionTypes`.
+Also when we can call a `saga` via action creators, by creating an `actionType` which will be returned 
+by an action creator. Then `watchAuth` will listen to this action and call our `saga`. Note that in the the action creators, we can pass actions which then will be also passed to the sagas! Needless to say if we don't put the `actionType` in our reducer, it never listens to it! Note too that the `yield` `takeEvery` functions in the `watchAuth` don't run sequentially. So the order doesn't matter.
