@@ -1,5 +1,4 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
 
 export const authStart = () => {
 	return {
@@ -46,36 +45,12 @@ export const checkAuthTimeout = (expirationTime) => {
 };
 
 export const auth = (email, password, isSignup) => {
-	return (dispatch) => {
-		dispatch(authStart());
-		let URL =
-			'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDutyh3MQSQI_Du4FRSvPU7XAYwVTOBVfQ';
-		if (!isSignup) {
-			URL =
-				'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDutyh3MQSQI_Du4FRSvPU7XAYwVTOBVfQ';
-		}
-		const authData = {
-			email: email,
-			password: password,
-			returnSecureToken: true
-		};
-		axios
-			.post(URL, authData)
-			.then((response) => {
-				const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-				localStorage.setItem('token', response.data.idToken);
-				localStorage.setItem('expirationDate', expirationDate);
-				localStorage.setItem('userId', response.data.localId);
-				dispatch(authSuccess(response.data.idToken, response.data.localId));
-				dispatch(checkAuthTimeout(response.data.expiresIn));
-			})
-			.then()
-			.catch((error) => dispatch(authFail(error.response.data.error)))
-			.catch((err) => {
-				err.message = 'Some error occured check internet connection';
-				dispatch(authFail(err.message));
-			});
-	};
+	return {
+		type: actionTypes.AUTH_USER,
+		email: email,
+		password: password,
+		isSignup: isSignup
+	}
 };
 
 export const setAuthRedirectPath = (path) => {

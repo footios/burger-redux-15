@@ -7,7 +7,6 @@ import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 //import Checkout from './containers/Checkout/Checkout';
 // import Orders from './containers/Orders/Orders';
 // import Auth from './containers/Auth/Auth';
-import Logout from './containers/Logout/Logout';
 import { connect } from 'react-redux';
 import * as actions from './store/actions';
 import Spinner from './components/UI/Spinner/Spinner';

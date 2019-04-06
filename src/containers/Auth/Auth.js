@@ -114,7 +114,7 @@ class Auth extends Component {
 		}
 		switch (errorMessage) {
 			case 'EMAIL_EXISTS':
-				errorMessage = 'This e-mail address allready exista. Please switch to sign in.';
+				errorMessage = 'This e-mail address allready exists. Please switch to sign in.';
 				break;
 			case 'OPERATION_NOT_ALLOWED':
 				errorMessage = 'Please do not insert a password';
