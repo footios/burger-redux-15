@@ -15,7 +15,7 @@ import { burgerBuilderReducer } from './store/reducers/burgerBuilderReducer';
 import { orderReducer } from './store/reducers/orderReducer'
 import { fetchOrdersReducer } from './store/reducers/fetchOrdersReducer'
 import { authReducer } from './store/reducers/authReducer'
-import { watchAuth } from './store/sagas'
+import { watchAuth, watchBurgerBuilder } from './store/sagas'
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -38,7 +38,8 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, devtools);
 
-sagaMiddleware.run(watchAuth)
+sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchBurgerBuilder)
 
 // Note curly braces didn't work!
 const app = (
