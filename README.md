@@ -92,3 +92,5 @@ Note too that the `yield takeEvery(...)` functions in the `watchAuth` don't run 
 
 445. 
 It seams like `watchAuth` is our new reducer (kind of). But here we do call functions, and every function gets executed. We don't have `switch` and `case`.
+
+446. 
