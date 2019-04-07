@@ -1,5 +1,5 @@
 import { delay } from 'redux-saga/effects';
-import { put } from 'redux-saga/effects';
+import { put, call, all } from 'redux-saga/effects';
 import axios from 'axios';
 
 import * as actions from '../actions';
@@ -9,7 +9,10 @@ import * as actions from '../actions';
 // for it to finish.
 // We need to hook up this function to the store.
 export function* logoutSaga(action) {
-	yield localStorage.removeItem('token');
+	// alternative: call()
+	// use it if you want to test your generators!
+	yield call([ localStorage, 'removeItem' ], 'token');
+	// yield localStorage.removeItem('token');
 	yield localStorage.removeItem('expirationDate');
 	yield localStorage.removeItem('userId');
 	yield localStorage.removeItem('email');
@@ -17,8 +20,7 @@ export function* logoutSaga(action) {
 }
 
 export function* checkAuthTimeoutSaga(action) {
-	yield delay(action.expirationTime * 1000);
-	yield put(actions.authLogout());
+	yield all([ delay(action.expirationTime * 1000), put(actions.authLogout()) ]);
 }
 
 export function* authUserSaga(action) {
@@ -62,19 +64,18 @@ export function* authUserSaga(action) {
 }
 
 export function* authCheckStateSaga(action) {
-		const token = yield localStorage.getItem('token');
-		if (!token) {
+	const token = yield localStorage.getItem('token');
+	if (!token) {
+		yield put(actions.authLogout());
+	} else {
+		const expirationDate = yield new Date(localStorage.getItem('expirationDate'));
+		if (expirationDate <= new Date()) {
 			yield put(actions.authLogout());
 		} else {
-			const expirationDate = yield new Date(localStorage.getItem('expirationDate'));
-			if (expirationDate <= new Date()) {
-				yield put(actions.authLogout());
-			} else {
-				const userId = yield localStorage.getItem('userId');
-				yield put(actions.authSuccess(token, userId));
-				yield put(actions.checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
-			}
+			const userId = yield localStorage.getItem('userId');
+			yield put(actions.authSuccess(token, userId));
+			yield put(actions.checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
 		}
-		yield put(actions.setAuthInitialized());
-	
+	}
+	yield put(actions.setAuthInitialized());
 }

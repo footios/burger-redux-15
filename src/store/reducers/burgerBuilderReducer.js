@@ -70,7 +70,8 @@ const burgerFaild = (state, action) => {
 
 const loading = (state, action) => {
 	return updateObject(state, {
-		error: true
+		error: false,
+		loading: true
 	});
 };
 

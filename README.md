@@ -53,17 +53,18 @@ in 2 1/2 (two and a half) months.
 
 > Lectures 340 - 451
 
-Sometimes we have code in the action creators...
-but you could make the argument that you want action creators 
+Sometimes we have `code` in the `action-creators`.
+But you could make the argument that you want `action-creators` 
 or the whole idea of dispatching actions
-to be very clean, that you don't want to have any other code in there 
+to be very clean. That you don't want to have any other code in there 
 which is not really related to dispatching
 an action and this is where `redux saga` comes in.
 
 With `redux-saga`,
 you create so-called `sagas` which are essentially kind of `functions` 
+which we call `generators`
 which you run up on certain actions
-and which handle all your side effect logic 
+and which handle all your __side effect logic__ 
 and a side effect simply is something like 
 accessing local storage, reaching out to a server, 
 maybe changing the route or executing a timer like this here.
@@ -91,6 +92,6 @@ Needless to say if we don't put the `actionType` in our `reducer`, it never list
 Note too that the `yield takeEvery(...)` functions in the `watchAuth` don't run sequentially. So the order doesn't matter.
 
 445. 
-It seams like `watchAuth` is our new reducer (kind of). But here we do call functions, and every function gets executed. We don't have `switch` and `case`.
+It seams like `watchAuth` is our new reducer (kind of). But here we call functions, and every function gets executed. And we don't have `switch` and `case`.
 
 446. 
